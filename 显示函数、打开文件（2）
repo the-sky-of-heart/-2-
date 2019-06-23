@@ -1,0 +1,64 @@
+//显示函数
+
+void show() 
+ { 
+int i; 
+char c; 
+system("cls"); 
+printf("\t\t编号\t\t 名称\t\t 属性\t\t 价格\t\t 数量\t\t 备注\n");
+for(i=0; i<S; i++) 
+{ 
+ printf("\t\t%-16d %-16s %-16s",food[i].num,food[i].name,food[i].nature);
+ printf("%16.2f %16d %16s",food[i].price,food[i].amount,food[i].remarks);
+ 
+ printf("\n");
+} 
+printf("\n\n"); 
+printf("按回车键返回！"); 
+c=getchar(); 
+c=getchar(); 
+ }
+
+char file[20]; //文件名，全局变量
+
+//打开文件
+
+void open() 
+ { 
+FILE *fp; 
+int i; 
+char c; 
+system("cls"); 
+printf("输入打开的文件名：\n"); 
+scanf("%s",file); 
+if((fp=fopen(file,"rb"))==NULL) 
+{ 
+printf("cannot open infile\n"); 
+} 
+if(fread(&S,sizeof(int),1,fp)!=1) 
+{ 
+if(feof(fp)) 
+{ 
+fclose(fp); 
+return ; 
+} 
+printf("文件读取错误！\n"); 
+} 
+for(i=0;i<S;i++) 
+{ 
+if(fread(&food[i],sizeof(struct data),1,fp)!=1) 
+{ 
+if(feof(fp)) 
+{ 
+fclose(fp); 
+return ; 
+} 
+printf("文件读取错误！\n"); 
+} 
+} 
+fclose(fp); 
+printf("文件打开成功！\n\n"); 
+printf("按回车键返回！"); 
+c=getchar(); 
+c=getchar(); 
+ }
